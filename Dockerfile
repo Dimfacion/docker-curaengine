@@ -13,7 +13,7 @@ RUN apk add --update \
   && mkdir -p /usr/src/
 WORKDIR /usr/src/
 
-RUN git clone https://github.com/protocolbuffers/protobuf.git
+RUN git clone -b 'master' --single-branch --depth 1 https://github.com/protocolbuffers/protobuf.git
 WORKDIR /usr/src/protobuf
 RUN /usr/src/protobuf/autogen.sh \
   && ./configure \
@@ -21,7 +21,7 @@ RUN /usr/src/protobuf/autogen.sh \
   && make install
 WORKDIR /usr/src/
 
-RUN git clone https://github.com/Ultimaker/libArcus.git
+RUN git clone -b 'master' --single-branch --depth 1 https://github.com/Ultimaker/libArcus.git
 WORKDIR /usr/src/libArcus
 RUN mkdir build && cd build \
   && cmake /usr/src/libArcus \
@@ -29,7 +29,13 @@ RUN mkdir build && cd build \
   && make install
 WORKDIR /usr/src/
 
-RUN git clone https://github.com/Ultimaker/CuraEngine.git
+RUN git clone -b 'master' --single-branch --depth 1 https://github.com/Ultimaker/Cura.git \
+  && mkdir /usr/definitions \
+  && cp /usr/src/Cura/resources/definitions/* /usr/definitions \
+  && cp /usr/src/Cura/resources/extruders/* /usr/definitions \
+  && cp /usr/src/Cura/resources/quality/creality/base/* /usr/definitions
+
+RUN git clone -b 'master' --single-branch --depth 1 https://github.com/Ultimaker/CuraEngine.git
 WORKDIR /usr/src/CuraEngine
 RUN ls /usr/lib/libArcus.so.3
 RUN git checkout -b origin/master \
