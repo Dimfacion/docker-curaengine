@@ -36,7 +36,6 @@ RUN git clone -b 'master' --single-branch --depth 1 https://github.com/Ultimaker
 
 RUN git clone -b 'master' --single-branch --depth 1 https://github.com/Ultimaker/CuraEngine.git
 WORKDIR /usr/src/CuraEngine
-RUN ls /usr/lib/libArcus.so.3
 RUN git checkout -b origin/master \
   && mkdir build \
   && cd build \
