@@ -1,5 +1,4 @@
 FROM alpine
-RUN apk add libarcus --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
 RUN apk add --update \
   libtool \
   autoconf \
